@@ -1,0 +1,93 @@
+{%  extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{%block title%}{{request.user.first_name}}'s Profile{% endblock %}
+
+{%block body%}
+
+<style>
+	.profile-pic{
+		max-width: 200px;
+		max-height:200px;
+		margin: 0 auto;
+		border-radius: 50%;
+	}
+</style>
+
+<br>
+
+{% if messages %}
+{% for message in messages %}
+
+<div class="container">
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <h5 class="text-center"> {{message}}</h5>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+</div>
+
+{% endfor %}
+{% endif %}
+
+<br>
+<br>
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+	<div class="col-md-3">
+		<div class="card card-body">
+			<a class="btn btn-warning" href="{% url 'index' %}"> &#8592; Back to Home</a>
+			<hr>
+			<h3 style="text-align: center">Profile Settings</h3>
+			<hr>
+
+
+
+            <img src="static/webapp1/images/icons/user.png" class="rounded profile-pic" alt="user">
+			<h5 class="container text-center"><b>{{request.user.first_name}} {{request.user.last_name}} </b></h5>
+
+		</div>
+	</div>
+    <div class="col-md-1"></div>
+	<div class="col-md-6">
+
+		<div class="card card-body">
+            <form action="" method="POST">{% csrf_token %}
+
+                {{form2|crispy}}
+
+				{% if form1 %}
+                	{{form1|crispy}}
+				{% else %}
+					<div class="form-group">
+						<label for="exampleInputEmail1">Phone Number*</label>
+						<input type="text" name="phone_no" class="form-control" id="exampleInputEmail1" required>
+					  </div>
+				<div class="form-group">
+						<label for="exampleInputEmail2">Postcode*</label>
+						<input type="text" name="Postcode" class="form-control" id="exampleInputEmail2" required>
+					  </div>
+				<div class="form-group">
+						<label for="exampleInputEmail3">Address*</label>
+						<input type="text" name="address" class="form-control" id="exampleInputEmail3" required>
+					  </div>
+				{% endif %}
+                <button type="submit" class="btn btn-outline-success btn-sm">Change Profile</button>
+            </form>
+
+		</div>
+
+</div>
+</div>
+
+</br>
+</br>
+</br>
+
+<br>
+<br>
+{% endblock %}

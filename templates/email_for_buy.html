@@ -1,0 +1,21 @@
+{% autoescape off %}
+
+Hi {{first_name}} {{last_name}}!
+
+You have purchase Some Product from our market. Details are Given Below:
+{% for i in order %}
+
+Order Id : {{i.order_id}}
+Product Name : {{i.Lesson}}
+Product Price : £ {{i.Lesson_price}}
+Instructor : {{i.Instructor}}
+
+{% endfor %}
+
+Your Details :
+Address : {{order_cus.address}}
+Postal Code : {{order_cus.zip}}
+Phone Number : {{order_cus.phone}}
+Email Addess : {{order_cus.email}}
+
+{% endautoescape %}

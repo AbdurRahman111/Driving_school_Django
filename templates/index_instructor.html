@@ -1,0 +1,60 @@
+{% extends 'base_instructor.html' %}
+
+{% block title %}{{request.session.instructor_first_name}} {{request.session.instructor_last_name}} - Deshboard{% endblock %}
+
+{% block body %}
+<ul class="list-group container">
+  <li class="list-group-item">
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#Order Id</th>
+          <th scope="col">Customer Name</th>
+          <th scope="col">Date</th>
+          <th scope="col">Status</th>
+
+        </tr>
+      </thead>
+      <tbody>
+      {% if filter_order_by_instructor %}
+      {% for i in filter_order_by_instructor %}
+        <tr>
+          <th scope="row"><a href="{% url 'order_details' i.id %}">{{i.order_id}}</a></th>
+          <td>{{i.user.first_name}} {{i.user.last_name}}</td>
+          <td>{{i.order_date}}</td>
+          <td>
+                {% if i.customer_cancel_order %}
+
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" disabled>
+                      Customer Canceled
+                    </button>
+
+                {% elif i.instructor_cancel_order %}
+
+                <button type="button" class="btn btn-danger" disabled>
+                      You Canceled
+                    </button>
+
+
+                {% else %}
+                <button type="button" class="btn btn-success" disabled>
+                      Active
+                    </button>
+                {% endif %}
+            </td>
+
+        </tr>
+      {% endfor %}
+
+      {% else %}
+      <tr>
+          <th class="text-center" colspan="4">You Have No Order !!</th>
+        </tr>
+      {% endif %}
+
+      </tbody>
+    </table>
+  </li>
+</ul>
+{% endblock %}

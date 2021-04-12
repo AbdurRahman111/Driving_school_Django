@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}My Orders{% endblock %}
+
+
+{% block body %}
+
+
+</br>
+</br>
+</br>
+<div class="container">
+<h3><p class="text-center" style="color:#07889E;">My Orders</p></h3><hr>
+</div>
+
+
+
+{% if get_all_order %}
+{% for k in get_all_order %}
+<div class="card container">
+  <div class="card-body">
+    <h5 class="card-title">
+    </h5>
+
+{% if k.customer_cancel_order %}
+
+<button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal" disabled>
+      You Canceled
+    </button>
+
+{% elif k.instructor_cancel_order %}
+
+<button type="button" class="btn btn-danger float-right" disabled>
+      Instructor Canceled
+    </button>
+
+
+{% else %}
+<button type="button" class="btn btn-success float-right" disabled>
+      Active
+    </button>
+{% endif %}
+
+    <h5>Order Id : <a href="{% url 'my_order_details' k.id %}">{{k.order_id}}</a> </h5>
+    <h7>{{k.product_details}}</h7></br>
+    <h7>Total Bill : {{k.total_bill}}</h7><br/>
+    <span class="badge badge-info badge-pill"> <h7>Date : {{k.order_date}}</h7></span>
+
+
+  </div>
+</div>
+<br/>
+{% endfor %}
+{% else %}
+<p class="text-center">You Have No Order To See</p>
+</br>
+</br>
+
+{% endif %}
+
+</br>
+</br>
+</br>
+</br>
+</br>
+
+{% endblock %}

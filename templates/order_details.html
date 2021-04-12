@@ -1,0 +1,83 @@
+{% extends 'base_instructor.html' %}
+
+{% block title %}{{request.session.instructor_first_name}} {{request.session.instructor_last_name}} - Deshboard{% endblock %}
+
+{% block body %}
+
+
+<div class="container">
+<h5><p class="text-center" style="color:#07889E;">Order ID :
+{{get_order.order_id}}</p>
+
+</h5>
+
+
+  <span class="badge badge-info badge-pill"> <h7>Date : {{get_order.order_date}}</h7></span>
+
+{% if get_order.instructor_cancel_order %}
+
+<button type="button" class="btn btn-danger float-right" disabled>
+      You Canceled
+    </button>
+
+
+{% elif get_order.customer_cancel_order %}
+
+<button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal" disabled>
+      Customer Canceled
+</button>
+
+{% else %}
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal">
+      Cancel The Order
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Are You Sure To Cancel This Order??
+          </div>
+          <div class="modal-footer">
+            <form action="{% url 'make_cancel_order' %}" method="POST">{% csrf_token %}
+              <input type="hidden" name="order_id" value="{{get_order.id}}">
+              <button type="submit" class="btn btn-danger">Yes</button>
+            </form>
+
+            <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endif %}
+
+<br>
+<br>
+  <hr>
+</div>
+
+
+
+<ul class="list-group container">
+  <li class="list-group-item"><b>Customer Name :</b> {{get_order.user.first_name}} {{get_order.user.last_name}}</li>
+  <li class="list-group-item"><b>Lesson :</b> {{get_order.Lesson}}</li>
+
+  <li class="list-group-item"><b>Price :</b> £{{get_order.Lesson_price}}</li>
+  <li class="list-group-item"><b>Address :</b> {{get_order.address}}</li>
+
+  <li class="list-group-item"><b>Postal Code :</b> {{get_order.zip}}</li>
+
+  <li class="list-group-item"><b>Phone :</b> {{get_order.phone}}</li>
+  <li class="list-group-item"><b>Email :</b> {{get_order.email}}</li>
+</ul>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base_instructor.html' %}
+
+{% block title %}{{request.session.instructor_first_name}} {{request.session.instructor_last_name}} - Deshboard{% endblock %}
+
+{% block body %}
+<ul class="list-group container">
+  <li class="list-group-item">
+
+    <div class="card card-body">
+			<table class="table container">
+
+			  <tbody>
+				<tr>
+				  <td>First Name :</td>
+				  <td>{{get_instructor_by_id.first_name}}</td>
+
+				</tr>
+				<tr>
+				  <td>Last Name :</td>
+				  <td>{{get_instructor_by_id.last_name}}</td>
+				</tr>
+
+
+				<tr>
+				  <td>Email : </td>
+				  <td>{{get_instructor_by_id.email}}</td>
+				</tr>
+
+			  	<tr>
+				  <td>Phone : </td>
+				  <td>{{get_instructor_by_id.phone}}
+
+				  </td>
+				</tr>
+
+			  	<tr>
+				  <td>Address : </td>
+				  <td>{{get_instructor_by_id.address}}</td>
+				</tr>
+
+			  </tbody>
+			</table>
+		</div>
+  </li>
+</ul>
+{% endblock %}

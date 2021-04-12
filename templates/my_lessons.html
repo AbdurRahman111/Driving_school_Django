@@ -1,0 +1,46 @@
+{% extends 'base_instructor.html' %}
+
+{% block title %}{{request.session.instructor_first_name}} {{request.session.instructor_last_name}} - Deshboard{% endblock %}
+
+{% block body %}
+<ul class="list-group container">
+  <li class="list-group-item">
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Lesson</th>
+          <th scope="col">Category</th>
+          <th scope="col">Price</th>
+
+        </tr>
+      </thead>
+      <tbody>
+      {% if filter_lessons_by_instructor %}
+      {% for i in filter_lessons_by_instructor %}
+
+        <tr>
+          <th scope="row">
+              <a href="{% url 'product_detail' i.id %}"><img class="how-pos4 pointer-none" src="/media/{{i.image}}" alt="ICON" height="40" width="40">
+
+              {{i.product_name}}
+              </a>
+          </th>
+          <td>{{i.category}}</td>
+          <td>{{i.product_price}}</td>
+
+        </tr>
+
+      {% endfor %}
+
+      {% else %}
+      <tr>
+          <th class="text-center" colspan="3">You Have No Order !!</th>
+        </tr>
+      {% endif %}
+
+      </tbody>
+    </table>
+  </li>
+</ul>
+{% endblock %}
